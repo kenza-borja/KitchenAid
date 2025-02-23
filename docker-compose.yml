@@ -1,0 +1,59 @@
+version: '3'
+
+services:
+  web:
+    image: kitchenaid:latest
+    ports:
+      - "8080:80"
+networks:
+  my_network:
+    driver: bridge
+#ASSIGN CONSISTANT STORAGE THAT IS NOT TIED TO THE CONTAINERS 
+#LIFECYCLE TO PERSIST DATA ACROSS CONTAINER RESTARTS.
+volumes:
+  my_volume:
+services:
+  db:
+    image: postgres
+    volumes:
+      - my_volume:/var/lib/postgresql/data
+
+
+services:
+  frontend:
+    image: example/webapp
+    ports:
+      - "443:8043"
+    networks:
+      - front-tier
+      - back-tier
+    configs:
+      - httpd-config
+    secrets:
+      - server-certificate
+
+  backend:
+    image: example/database
+    volumes:
+      - db-data:/etc/data
+    networks:
+      - back-tier
+
+volumes:
+  db-data:
+    driver: flocker
+    driver_opts:
+      size: "10GiB"
+
+configs:
+  httpd-config:
+    external: true
+
+secrets:
+  server-certificate:
+    external: true
+
+networks:
+  # The presence of these objects is sufficient to define them
+  front-tier: {}
+  back-tier: {}
