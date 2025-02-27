@@ -13,3 +13,11 @@ window.onload = updateDate;
 document.getElementById("add_item_button").addEventListener("click", function() {
     window.location.href = "add_item.html";
 });
+
+
+const container = document.querySelector(".carousel-container");
+
+container.addEventListener("wheel", (event) => {
+    event.preventDefault();
+    container.scrollLeft += event.deltaY * 1.5; // Makes scrolling smoother
+});

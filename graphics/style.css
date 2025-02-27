@@ -57,4 +57,35 @@ button:hover {
     background-color: #272727;
 }
 
+.carousel-container {
+    width: 100%; /* Full width */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    overflow-y: hidden;
+    white-space: nowrap; /* Prevent wrapping */
+    scroll-behavior: smooth;
+    display: flex;
+    padding: 10px;
+}
 
+.carousel-item {
+    flex: 0 0 calc(33.33% - 15px); /* Each card takes 1/3 of the container */
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    border-bottom: 2px solid #eee;
+}
+
+.carousel-item p {
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
